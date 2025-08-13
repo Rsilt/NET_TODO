@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend/TodoApi
+    container_name: todo-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_PATH=/app/todo.db
+    volumes:
+      - ./backend/TodoApi/todo.db:/app/todo.db
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: todo-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  db:
+    image: nouchka/sqlite3
+    container_name: todo-db
+    volumes:
+      - ./backend/TodoApi/todo.db:/data/todo.db
+    command: ["sqlite3", "/data/todo.db"]
