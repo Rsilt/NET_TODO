@@ -1,53 +1,76 @@
-Thought Process and Technology Choices
-.NET 8 / ASP.NET Core – Modern, high-performance framework for building RESTful APIs with minimal boilerplate, strong typing, and built-in dependency injection. Powers the backend API.
+# Thought Process and Technology Choices
 
-SQLite – Lightweight, file-based database requiring no complex setup. Stores todos persistently in todo.db.
+## Backend
 
-Entity Framework Core (EF Core) – ORM simplifies database operations, supports migrations, strongly typed queries, and data seeding. Handles CRUD operations. Main idea was to use it for subnesting the bonus task. 
+I decided to use .NET 8 / ASP.NET Core because it's a modern, high-performance framework that makes building RESTful APIs straightforward. It keeps the code minimal and type-safe, with built-in dependency injection that makes development easier.
 
-Docker & Docker Compose – Ensures consistent environments. Containerizes backend and frontend for easy startup with a single command.
+For data storage, I chose SQLite because it's lightweight and file-based, requiring no complex setup. It stores data persistently in todo.db, which simplifies deployment.
 
-Swagger (OpenAPI) – Interactive UI for testing and documenting API endpoints.
+Entity Framework Core (EF Core) is my ORM of choice. It helps simplify database operations, supports migrations, and allows me to write strongly typed queries. I plan to use it especially for handling nested or complex data structures in the bonus task.
 
-.env configuration – Keeps sensitive configuration like database paths separate from code, improving security and flexibility.
+To ensure environment consistency, I containerized the entire setup using Docker and Docker Compose. This way, starting up the backend and frontend requires just a single command, making development and deployment much smoother.
 
-React (Frontend) – Provides a modern, responsive, and dynamic UI that integrates smoothly with the API.
+For API documentation and testing, I integrated Swagger (OpenAPI). It provides an interactive UI where I can explore endpoints and test API calls easily.
 
-Overall: Chosen for simplicity, portability, and maintainability, making the project easy to run, test, and deploy anywhere.
+Sensitive configuration details, like the database path, are stored in an .env file. This approach keeps sensitive info separate from the code, enhancing security and flexibility when configuring different environments.
 
-## SETUP INSTRUCTIONS 
-1. Clone the repository
+## Frontend
+
+I chose React for the frontend because it's modern, responsive, and easy for building dynamic interfaces that integrate with the backend API.
+
+---
+
+# NET_TODO
+
+## Setup Instructions
+
+### 1. Clone the repository
 First, clone the repository and navigate into it:
 
+```bash
 git clone https://github.com/Rsilt/NET_TODO.git
 cd NET_TODO
+```
 
-2. Backend Setup
+---
+
+### 2. Backend Setup
 Navigate to the backend folder:
 
+```bash
 cd backend/TodoApi
+```
 
-Restore NuGet packages with:
+Restore NuGet packages:
 
+```bash
 dotnet restore
+```
 
-Apply any pending migrations. This will create the SQLite database automatically:
+Apply any pending migrations (this will create the SQLite database automatically):
 
+```bash
 dotnet ef database update
+```
 
-Run the API locally using:
+Run the API locally:
 
+```bash
 dotnet run
+```
 
-You can access the Swagger UI for testing at:
-https://localhost:7263/swagger/index.html
+You can access the Swagger UI for testing at:  
+[https://localhost:7263/swagger/index.html](https://localhost:7263/swagger/index.html)  
+*The port may vary.*
 
-* The port may vary.
+---
 
-3. Running with Docker
-Make sure Docker Desktop is running. From the project root, run:
+### 3. Running with Docker
+Make sure **Docker Desktop** is running. From the project root, run:
 
+```bash
 docker-compose up --build
+```
 
 This will start the backend and frontend containers, ready to use.
 
